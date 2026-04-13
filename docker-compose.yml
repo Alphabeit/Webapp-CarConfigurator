@@ -1,0 +1,80 @@
+# created:    20260409 / alphabeit
+# lastupdate: 20260413 / alphabeit
+
+name: carconfigurator
+version: 1.0
+services:
+  
+  # javascript applications (Vue.js)
+  # alpine based image
+  # https://docs.docker.com/guides/vuejs/containerize/   
+  #frontends:    
+  #  image: node:24.12.0-alpine   
+  #  restart: always    
+  #  environment:      
+  #    TZ: Europe/Berlin
+  
+  # mssql database; ubuntu based image
+  # https://hub.docker.com/r/microsoft/mssql-server/
+  database:    
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    expose:      
+     - "1433"      
+    restart: always    
+    environment:      
+      TZ: Europe/Berlin
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: "!Password1234"
+      MSSQL_PID: Express
+      TrustServerCertificate: yes
+
+  # Create tables on database based on code of backend.
+  # Run after database, before backend.
+  # See also https://www.linkedin.com/pulse/solving-net-ef-core-migrations-docker-compose-cicd-pipelines-jamal-hialf
+  migration:
+    image: mcr.microsoft.com/dotnet/sdk:10.0
+    working_dir: /src
+    volumes:
+      - ./backend:/src
+    environment:
+      - DOTNET_CLI_HOME=/tmp
+      - PATH=/tmp/.dotnet/tools:$PATH
+    entrypoint: >
+      sh -c "dotnet tool install --global dotnet-ef &&
+            dotnet restore &&
+            dotnet build &&
+            dotnet ef migrations add InitialCreate &&
+            dotnet ef database update"
+    depends_on:
+      - database
+  
+  # .NET Runtime
+  # https://learn.microsoft.com/en-us/dotnet/core/docker/build-container?tabs=windows&pivots=dotnet-10-0
+  backend:    
+    build:
+      context: .
+      dockerfile: backend.dockerfile
+    restart: always    
+    environment:      
+      TZ: Europe/Berlin
+    depends_on:
+      - database
+      - migration
+  
+  # nginx as reservproxy
+  # alpine based image
+  #reservproxy:    
+  #  image: nginx:alpine    
+  #  ports:      
+  #   - "80:80"      
+  #   - "443:443"    
+  #  volumes:      
+  #   - /opt/nexus/compose/config/reverseproxy.conf:/etc/nginx/nginx.conf:ro      
+  #   - /opt/nexus/compose/certs:/etc/nginx/ssl:ro    
+  #  restart: always    
+  #  environment:      
+  #    TZ: Europe/Berlin
+  #  depends_on:
+  #    - frontends
+  #    - database
+  #    - backend
