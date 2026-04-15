@@ -1,5 +1,5 @@
 # created:    20260409 / alphabeit
-# lastupdate: 20260413 / alphabeit
+# lastupdate: 20260415 / alphabeit
 
 name: carconfigurator
 version: 1.0
@@ -54,6 +54,9 @@ services:
     build:
       context: .
       dockerfile: backend.dockerfile
+    ports:
+      - "80:80"
+      - "8080:8080"
     restart: always    
     environment:      
       TZ: Europe/Berlin

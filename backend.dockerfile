@@ -1,5 +1,5 @@
 # created:    20260412 / alphabeit
-# lastupdate: 20260413 / alphabeit
+# lastupdate: 20260415 / alphabeit
 
 # https://blog.dotnethow.net/containerizing-your-net-application-with-docker/
 
@@ -8,9 +8,14 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 COPY ./backend .
 
+RUN dotnet add package Microsoft.AspNetCore.OpenApi
+RUN dotnet add package Microsoft.AspNetCore.Mvc
+
 RUN dotnet add package Microsoft.EntityFrameworkCore
 RUN dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 RUN dotnet add package Microsoft.EntityFrameworkCore.Tools
+RUN dotnet add package Microsoft.EntityFrameworkCore.Design
+
 RUN dotnet add package Microsoft.Extensions.Configuration
 RUN dotnet add package Microsoft.Extensions.Configuration.FileExtensions
 RUN dotnet add package Microsoft.Extensions.Configuration.Json
@@ -23,5 +28,6 @@ WORKDIR /app
 COPY ./backend/appsettings.json .
 COPY --from=build /app .
 EXPOSE 80
+EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "/app/backend.dll"]
