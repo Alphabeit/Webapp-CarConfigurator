@@ -1,21 +1,12 @@
 # created:    20260409 / alphabeit
-# lastupdate: 20260415 / alphabeit
+# lastupdate: 20260417 / alphabeit
 
 name: carconfigurator
 version: 1.0
 services:
   
-  # javascript applications (Vue.js)
-  # alpine based image
-  # https://docs.docker.com/guides/vuejs/containerize/   
-  #frontends:    
-  #  image: node:24.12.0-alpine   
-  #  restart: always    
-  #  environment:      
-  #    TZ: Europe/Berlin
-  
   # mssql database; ubuntu based image
-  # https://hub.docker.com/r/microsoft/mssql-server/
+  # See also as ref https://hub.docker.com/r/microsoft/mssql-server/
   database:    
     image: mcr.microsoft.com/mssql/server:2025-latest
     expose:      
@@ -28,9 +19,9 @@ services:
       MSSQL_PID: Express
       TrustServerCertificate: yes
 
-  # Create tables on database based on code of backend.
-  # Run after database, before backend.
-  # See also https://www.linkedin.com/pulse/solving-net-ef-core-migrations-docker-compose-cicd-pipelines-jamal-hialf
+  # create tables in database based upon code backend
+  # run after database, before backend
+  # See also as ref https://www.linkedin.com/pulse/solving-net-ef-core-migrations-docker-compose-cicd-pipelines-jamal-hialf
   migration:
     image: mcr.microsoft.com/dotnet/sdk:10.0
     working_dir: /src
@@ -49,35 +40,44 @@ services:
       - database
   
   # .NET Runtime
-  # https://learn.microsoft.com/en-us/dotnet/core/docker/build-container?tabs=windows&pivots=dotnet-10-0
+  # run backend (database interface and api server)
+  # See Dockerfile "backend.dockerfile" for more infos.
+  # See also as ref https://learn.microsoft.com/en-us/dotnet/core/docker/build-container?tabs=windows&pivots=dotnet-10-0
   backend:    
     build:
       context: .
       dockerfile: backend.dockerfile
-    ports:
-      - "80:80"
-      - "8080:8080"
+    expose:
+      - "8080"
     restart: always    
     environment:      
       TZ: Europe/Berlin
     depends_on:
       - database
       - migration
-  
-  # nginx as reservproxy
+
+  # using nginx as reservproxy; alpine based image
+  reservproxy:    
+    image: docker.io/nginx:alpine
+    ports:      
+     - "80:80"      
+     - "443:443"    
+    volumes:
+     - ./reservproxy/nginx.conf:/etc/nginx/nginx.conf:ro
+    # - ./reservproxy/nginxsecure.conf:/etc/nginx/nginx.conf:ro     
+    # - ./reservproxy/certs/:/etc/nginx/ssl/:ro  
+    restart: always    
+    environment:      
+      TZ: Europe/Berlin
+    depends_on:
+      - backend
+      #- frontends
+
+  # javascript applications (Vue.js)
   # alpine based image
-  #reservproxy:    
-  #  image: nginx:alpine    
-  #  ports:      
-  #   - "80:80"      
-  #   - "443:443"    
-  #  volumes:      
-  #   - /opt/nexus/compose/config/reverseproxy.conf:/etc/nginx/nginx.conf:ro      
-  #   - /opt/nexus/compose/certs:/etc/nginx/ssl:ro    
+  # See also as ref https://docs.docker.com/guides/vuejs/containerize/   
+  #frontends:    
+  #  image: node:24.12.0-alpine   
   #  restart: always    
   #  environment:      
   #    TZ: Europe/Berlin
-  #  depends_on:
-  #    - frontends
-  #    - database
-  #    - backend
