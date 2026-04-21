@@ -1,5 +1,5 @@
 /backend/bin
+/backend/Migrations
 /backend/obj
-/backend/Migration
 /frontend/dist
 /frontend/node_modules
