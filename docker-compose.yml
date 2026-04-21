@@ -1,5 +1,5 @@
 # created:    20260409 / alphabeit
-# lastupdate: 20260417 / alphabeit
+# lastupdate: 20260421 / alphabeit
 
 name: carconfigurator
 version: 1.0
@@ -73,11 +73,13 @@ services:
       - backend
       #- frontends
 
-  # javascript applications (Vue.js)
-  # alpine based image
-  # See also as ref https://docs.docker.com/guides/vuejs/containerize/   
-  #frontends:    
-  #  image: node:24.12.0-alpine   
-  #  restart: always    
-  #  environment:      
-  #    TZ: Europe/Berlin
+  # vue.js applications; alpine based image
+  frontends:    
+    build:
+      context: .
+      dockerfile: frontend.dockerfile
+    ports:
+     - "81:80"
+    restart: always    
+    environment:      
+      TZ: Europe/Berlin
