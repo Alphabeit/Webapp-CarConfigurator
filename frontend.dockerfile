@@ -14,6 +14,8 @@ COPY ./frontend/package*.json ./
 
 # Install dependencies
 RUN npm install
+RUN npm install vue-router
+RUN npm install vuetify vite-plugin-vuetify
 
 # Copy the rest of the application code to the working directory
 COPY ./frontend ./
