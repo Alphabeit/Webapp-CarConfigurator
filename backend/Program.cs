@@ -1,5 +1,5 @@
 // created:    20260409 / alphabeit
-// lastupdate: 20260415 / alphabeit
+// lastupdate: 20260429 / alphabeit
 
 // See also as ref https://medium.com/@e.talal/build-apis-in-net-core-with-entity-framework-bb76a7ba3d40 
 // See also as ref https://github.com/kakashidota/ProductAPI
@@ -39,9 +39,9 @@ namespace Backend
             {
                 var vehiclebodys = new List<VehicleBody>()
                 {
-                    new VehicleBody { Name="Typ A", Price=1249.39f },
-                    new VehicleBody { Name="Typ B", Price=1447.29f },
-                    new VehicleBody { Name="Typ C", Price=1809.19f }
+                    new VehicleBody { Name="Kaepfer", Image="vehicleBody01", Price=1249.39f },
+                    new VehicleBody { Name="Mustan", Image="vehicleBody02", Price=1447.29f },
+                    new VehicleBody { Name="Jeep", Image="vehicleBody03", Price=1809.19f }
                 };
             
                 foreach (var vehiclebody in vehiclebodys)
@@ -71,9 +71,9 @@ namespace Backend
             {
                 var wheels = new List<Wheel>()
                 {
-                    new Wheel { Name="Typ A", Price=137.39f },
-                    new Wheel { Name="Typ B", Price=116.74f },
-                    new Wheel { Name="Typ C", Price=219.88f },
+                    new Wheel { Name="Default", Image="wheel01", Price=137.39f },
+                    new Wheel { Name="Deluxe", Image="wheel02", Price=116.74f },
+                    new Wheel { Name="Adel", Image="wheel03", Price=219.88f },
                 };
 
                 foreach (var wheel in wheels)
@@ -87,9 +87,9 @@ namespace Backend
             {
                 var engines = new List<Engine>()
                 {
-                    new Engine { Name="Typ A", PS=22.4f, Price=2584.91f },
-                    new Engine { Name="Typ B", PS=34.8f, Price=3592.42f },
-                    new Engine { Name="Typ C", PS=61.0f, Price=6781.27f },
+                    new Engine { Name="Gas", Image="engine01", PS=22.4f, Price=2584.91f },
+                    new Engine { Name="Diesel", Image="engine02", PS=34.8f, Price=3592.42f },
+                    new Engine { Name="Electro", Image="engine03", PS=61.0f, Price=6781.27f },
                 };
 
                 foreach (var engine in engines)

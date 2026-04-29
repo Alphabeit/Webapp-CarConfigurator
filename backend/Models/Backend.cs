@@ -1,13 +1,13 @@
 // created:    20260415 / alphabeit
-// lastupdate: 20260415 / alphabeit
+// lastupdate: 20260429 / alphabeit
 
 // ========================================================
 // Tables 
 // ========================================================
 // Define Objects, use them later as tables with EFCore. 
 
-// See also as ref https://medium.com/@e.talal/build-apis-in-net-core-with-entity-framework-bb76a7ba3d40 (Step 2)
-// See also as ref https://github.com/kakashidota/ProductAPI/blob/master/ProductAPI/Models/Product.cs
+// See also https://medium.com/@e.talal/build-apis-in-net-core-with-entity-framework-bb76a7ba3d40 (Step 2)
+// See also https://github.com/kakashidota/ProductAPI/blob/master/ProductAPI/Models/Product.cs
 
 namespace Backend.Models
 {
@@ -16,7 +16,7 @@ namespace Backend.Models
     {
         public int Id { get; set; }
         public required string Name { get; set; }
-        //public required img Image { get; set; }
+        public required string Image { get; set; }
         public required float Price { get; set; }
     };
 
@@ -32,7 +32,7 @@ namespace Backend.Models
     {
         public int Id { get; set; }
         public required string Name { get; set; }
-        //public required img Image { get; set; }
+        public required string Image { get; set; }
         public required float Price { get; set; }
     };
 
@@ -40,7 +40,7 @@ namespace Backend.Models
     {
         public int Id { get; set; }
         public required string Name { get; set; }
-        //public required img Image { get; set; }
+        public required string Image { get; set; }
         public required float PS { get; set; }
         public required float Price { get; set; }
     };
