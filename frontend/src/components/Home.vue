@@ -1,25 +1,44 @@
 <!--
 created:    20260422 / alphabeit
-lastupdate: 20260422 / alphabeit
+lastupdate: 20260428 / alphabeit
 
 See also https://vuetifyjs.com/en/components/buttons/ for ref.
 See also https://www.codestudy.net/blog/open-link-in-new-window-with-vuetify-v-btn-and-vue-router/ for ref.
 -->
 
 <template>
-  <h1>Homepage</h1>
-  <p>Time to configure...</p>
 
-  <!-- Navigation -->
-  <v-btn @click="openRoute('/build')" variant="plain">
-    Build Car
-  </v-btn> <br>
-  <v-btn @click="openRoute('/order')" variant="plain">
-    Load Order
-  </v-btn> <br>
-  <v-btn @click="openRoute('/about')" variant="plain">
-    About
-  </v-btn> <br>
+  <section class="cards-wrapper">
+    
+    <div class="card-grid-space">
+      <a class="card" @click="openRoute('/build')">
+        <div>
+          <h1>Build</h1>
+          <p>Start to building your "dream" car.</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="card-grid-space">
+      <a class="card" @click="openRoute('/order')">
+        <div>
+          <h1>Order</h1>
+          <p>Shown your order.</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="card-grid-space">
+      <a class="card" @click="openRoute('/about')">
+        <div>
+          <h1>About</h1>
+          <p>About this website.</p>
+        </div>
+      </a>
+    </div>
+
+  </section>
+
 </template>
 
 <script>

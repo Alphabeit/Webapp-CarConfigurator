@@ -1,12 +1,298 @@
 /* 
 created:    20260422 / alphabeit
-lastupdate: 20260422 / alphabeit
+lastupdate: 20260429 / alphabeit
 
-See also https://www.w3schools.com/CSS/css_howto.asp for ref.
+See also https://www.w3schools.com/CSS/css_howto.asp
+See also https://codepen.io/Booligoosh/pen/mKPpQp
 */
 
+@import url('https://fonts.googleapis.com/css?family=Heebo:400,700|Open+Sans:400,700');
+
+:root {
+  --color: #55618a;
+  --transition-time: 0.5s;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-    background-color: #EFF1F4;
-    color: #2A2A2B;
-    text-align: center;
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Open Sans';
+  background-color: #EFF1F4;
+  background-image: url(../src/assets/backgroundFordMustanHighwaySunset.jpeg);
+  background-size: cover;
+  color: #2a2a2b;
+}
+
+a {
+  color: inherit;
+}
+
+.cards-wrapper {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 4rem;
+  padding: 4rem;
+  margin: 0 auto;
+  width: max-content;
+}
+
+/* overwire wrapper 
+   allow to set four cards aside 
+   used in Build.vue */
+.cads-wrapper-four {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+/* overwire wrapper 
+   smaller  
+   used in Build.vue */
+.cards-wrapper-smaller {
+  grid-gap: 1rem;
+  padding: 1rem;
+}
+
+.card {
+  font-family: 'Heebo';
+  --bg-filter-opacity: 0.5;
+  background-color: #eff1f482;
+  height: 15em;
+  width: 15em;
+  font-size: 1.5em;
+  color: #55618a;
+  border-radius: 1em;
+  padding: 1em;
+  display: flex;
+  align-items: flex-end;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 5em -1em black;
+  transition: all, var(--transition-time);
+  position: relative;
+  overflow: hidden;
+  border: 10px solid #ccc;
+  text-decoration: none;
+}
+
+/* overwire card 
+   bigger card
+   used in About.vue */
+.card-lager {
+  height: 20em;
+  width: 45em;
+}
+
+
+/* overwire card 
+   smaller card
+   used in Build.vue */
+.card-smaller {
+  height: 10em;
+  width: 15em;
+  font-size: 1.0em;
+  border-radius: 0.5em;
+  padding: 0.1em;
+  border: 5px solid #ccc;
+}
+
+.card:hover {
+  transform: rotate(0);
+}
+
+.card h1 {
+  margin: 0;
+  font-size: 1.5em;
+  line-height: 1.2em;
+}
+
+.card p {
+  font-size: 0.75em;
+  font-family: 'Open Sans';
+  margin-top: 0.5em;
+  line-height: 2em;
+}
+
+.card:before, .card:after {
+  content: '';
+  transform: scale(0);
+  transform-origin: top left;
+  border-radius: 50%;
+  position: absolute;
+  left: -50%;
+  top: -50%;
+  z-index: -5;
+  transition: all, var(--transition-time);
+  transition-timing-function: ease-in-out;
+}
+
+.card:before {
+  background: #ddd;
+  width: 250%;
+  height: 250%;
+}
+
+.card:after {
+  background: white;
+  width: 200%;
+  height: 200%;
+}
+
+.card:hover {
+  color: var(--color);
+}
+
+.card:hover:before, .card:hover:after {
+  transform: scale(1);
+}
+
+.info {
+  font-size: 1.0em;
+  display: flex;
+  padding: 1em 3em;
+  height: 3em;
+}
+
+.info img {
+  height: 3em;
+  margin-right: 0.5em;
+}
+
+.info h1 {
+  font-size: 1.5em;
+  font-weight: normal;
+  color: #EFF1F4;
+}
+
+
+
+/* Pattern styles */
+
+
+/* Pen-specific styles */
+* {
+  box-sizing: border-box;
+}
+body {
+  font-size: 1.25rem;
+  font-family: sans-serif;
+  line-height: 150%;
+}
+
+section {
+  color: #fff;
+  text-align: center;
+}
+
+div {
+  height: 100%;
+}
+
+article {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 1.75rem;
+  margin: 0 0 0.75rem 0;
+}
+
+
+
+/*
+see Build.vue; split side in half
+see also https://css-tricks.com/left-and-right/#using-absolute-positioning
+*/
+
+.container {
+  display: table;
+  width: 100%;
+}
+
+.left-half {
+  position: absolute;
+  left: 0px;
+  width: 40%;
+}
+
+.right-half {
+  position: absolute;
+  right: 0px;
+  width: 60%;
+}
+
+
+
+
+/* 
+see Build.vue; overwrite img of cards by classes
+*/
+
+.engine01 {
+  background-image: url(../src/assets/engines/engine01.png);
+  color: transparent;
+}
+
+.engine02 {
+  background-image: url(../src/assets/engines/engine02.png);
+  color: transparent;
+}
+
+.engine03 {
+  background-image: url(../src/assets/engines/engine03.png);
+  color: transparent;
+}
+
+.Firebrick {
+  background-color: firebrick;
+  color: transparent;
+}
+
+.Aqua {
+  background-color: aqua;
+  color: transparent;
+}
+
+.Limegreen {
+  background-color: limegreen;
+  color: transparent;
+}
+
+.vehicleBody01 {
+  background-image: url(../src/assets/vehicleBodys/vehicleBody01.png);
+  color: transparent;
+}
+
+.vehicleBody02 {
+  background-image: url(../src/assets/vehicleBodys/vehicleBody02.png);
+  color: transparent;
+}
+
+.vehicleBody03 {
+  background-image: url(../src/assets/vehicleBodys/vehicleBody03.png);
+  color: transparent;
+}
+
+.wheel01 {
+  background-image: url(../src/assets/wheels/wheel01.png);
+  color: transparent;
+}
+
+.wheel02 {
+  background-image: url(../src/assets/wheels/wheel02.png);
+  color: transparent;
+}
+
+.wheel03 {
+  background-image: url(../src/assets/wheels/wheel03.png);
+  color: transparent;
 }
